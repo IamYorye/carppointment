@@ -2,8 +2,8 @@
 
 Team:
 
-* Parsa - Sales
-* Person 2 - Which microservice?
+* Parsa Abdizadeh - Sales
+* Jaspreet Sangha - Service
 
 ## Design
 
