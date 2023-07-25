@@ -10,6 +10,39 @@ function Nav() {
         </button>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+            <li className='nav-item'>
+              <NavLink className="nav-link" to="/manufacturers/new"> Create a Manufacturer</NavLink>
+            </li>
+            <li className='nav-item'>
+              <NavLink className="nav-link" to="/manufacturers">Manufacturers List</NavLink>
+            </li>
+            <li className='nav-item'>
+              <NavLink className="nav-link" to="/vehiclemodel/new">Create a Vehicle Model</NavLink>
+            </li>
+            <li className='nav-item'>
+              <NavLink className="nav-link" to="/vehiclemodels">Vehicle Model List</NavLink>
+            </li>
+            <li className='nav-item'>
+              <NavLink className="nav-link" to="/automobiles/new">Create a Automobile</NavLink>
+            </li>
+            <li className='nav-item'>
+              <NavLink className="nav-link" to="/automobiles">Automobiles List</NavLink>
+            </li>
+            <li className='nav-item'>
+              <NavLink className="nav-link" to="/technicians/new">Add a Technician</NavLink>
+            </li>
+            <li className='nav-item'>
+              <NavLink className="nav-link" to="/technicians">Technician List</NavLink>
+            </li>
+            <li className='nav-item'>
+              <NavLink className="nav-link" to="/appointments/new">Create an appointment</NavLink>
+            </li>
+            <li className='nav-item'>
+              <NavLink className="nav-link" to="/appointments">Appointment List</NavLink>
+            </li>
+            <li className='nav-item'>
+              <NavLink className="nav-link" to="/servicehistory">Service History</NavLink>
+            </li>
           </ul>
         </div>
       </div>
