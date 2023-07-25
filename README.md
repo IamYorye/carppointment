@@ -121,6 +121,7 @@ In this instance, you could either update the name of the vehicle model or updat
   "picture_url": "https://hips.hearstapps.com/hmg-prod/images/2021-dodge-charger-srt-hellcat-redeye-103-1593634315.jpg?crop=0.769xw:0.577xh;0.0977xw,0.205xh&resize=1200:*"
 }
 ```
+```
 
 ### Automobiles:
 
@@ -232,6 +233,7 @@ Return Value -
 	},
 	"sold": false
 }
+```
 ```
 
 # Service Microservice
@@ -346,6 +348,7 @@ Now when you go back to your list of technicians or if you try to get the specif
 	"MESSAGE": "TECHNICIAN DOES NOT EXIST"
 }
 
+```
 ```
 
 With a 404 not found Error code .
