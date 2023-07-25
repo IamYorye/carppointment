@@ -29,12 +29,8 @@ function ServiceHistory() {
         }
     };
 
-    useEffect(() => {
-        fetchAppointmentsData();
-        getTechnicianData()
-    }, []);
-
-    useEffect(() => {
+    const handleFilterSubmit = (event) => {
+        event.preventDefault();
         if (vin) {
             const filteredAppointments = serviceHistory.filter(
                 (appointment) => appointment.vin === vin
@@ -43,12 +39,17 @@ function ServiceHistory() {
         } else {
             fetchAppointmentsData();
         }
-    }, [vin]);
+    };
+
+    useEffect(() => {
+        fetchAppointmentsData();
+        getTechnicianData();
+    }, []);
 
     return (
         <div>
             <h1>Service History</h1>
-            <div>
+            <form onSubmit={handleFilterSubmit}>
                 <label htmlFor="vin">Enter VIN: </label>
                 <input
                     type="text"
@@ -56,7 +57,8 @@ function ServiceHistory() {
                     value={vin}
                     onChange={handleVinChange}
                 />
-            </div>
+                <button type="submit">Submit</button>
+            </form>
             <table className="table table-dark table-hover">
                 <thead>
                     <tr>
@@ -70,17 +72,31 @@ function ServiceHistory() {
                     </tr>
                 </thead>
                 <tbody>
-                    {serviceHistory.map((appointment) => (
-                        <tr key={appointment.id}>
-                            <td>{appointment.vin}</td>
-                            <td>{appointment.date_time}</td>
-                            <td>{appointment.reason}</td>
-                            <td>{appointment.customer}</td>
-                            <td>{appointment.vip ? "Yes" : "No"}</td>
-                            <td>{appointment.technician.first_name}</td>
-                            <td>{appointment.status}</td>
-                        </tr>
-                    ))}
+                    {serviceHistory.map((appointment) => {
+                        const technician = technicians.find(
+                            (tech) => tech.technician_id === appointment.technician
+                        );
+                        const technicianFirstName = technician
+                            ? technician.first_name
+                            : "N/A";
+                        const technicianLastName = technician
+                            ? technician.last_name
+                            : "N/A";
+
+                        return (
+                            <tr key={appointment.id}>
+                                <td>{appointment.vin}</td>
+                                <td>{appointment.date_time}</td>
+                                <td>{appointment.reason}</td>
+                                <td>{appointment.customer}</td>
+                                <td>{appointment.vip ? "Yes" : "No"}</td>
+                                <td>
+                                    {technicianFirstName} {technicianLastName}
+                                </td>
+                                <td>{appointment.status}</td>
+                            </tr>
+                        );
+                    })}
                 </tbody>
             </table>
         </div>

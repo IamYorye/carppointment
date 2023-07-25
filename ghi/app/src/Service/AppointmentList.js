@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+
 function AppointmentsList() {
     const [appointments, setAppointments] = useState([]);
     const [technicians, setTechnicians] = useState([]);
+    const [autos, setAutos] = useState([])
 
     const getAppointmentData = async () => {
         const appointmentsUrl = "http://localhost:8080/api/appointments/";
@@ -22,10 +25,15 @@ function AppointmentsList() {
         }
     };
 
-    useEffect(() => {
-        getAppointmentData();
-        getTechnicianData();
-    }, []);
+    const getAutosData = async () => {
+        const autosUrl = "http://localhost:8100/api/automobiles/"
+        const response = await fetch(autosUrl)
+        if (response.ok) {
+            const data = await response.json()
+            setAutos(data.autos)
+        }
+    }
+
 
     const cancelAppointment = async (id) => {
         const appointmentUrl = `http://localhost:8080/api/appointments/${id}/`;
@@ -38,8 +46,8 @@ function AppointmentsList() {
         };
         const response = await fetch(appointmentUrl, fetchConfig);
         if (response.ok) {
-            setAppointments((prevAppointments) =>
-                prevAppointments.filter((appointment) => appointment.id !== id)
+            setAppointments((appointments) =>
+                appointments.filter((appointment) => appointment.id !== id)
             );
         }
     };
@@ -55,11 +63,17 @@ function AppointmentsList() {
         };
         const response = await fetch(appointmentUrl, fetchConfig);
         if (response.ok) {
-            setAppointments((prevAppointments) =>
-                prevAppointments.filter((appointment) => appointment.id !== id)
+            setAppointments((appointments) =>
+                appointments.filter((appointment) => appointment.id !== id)
             );
         }
     };
+
+    useEffect(() => {
+        getAppointmentData();
+        getTechnicianData();
+        getAutosData()
+    }, []);
 
     return (
         <>

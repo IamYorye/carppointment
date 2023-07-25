@@ -1,5 +1,4 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { useState, useEffect } from 'react';
 import MainPage from './MainPage';
 import Nav from './Nav';
 import TechnicianForm from './Service/TechnicianForm';
@@ -32,7 +31,6 @@ function App() {
           <Route path="appointments/new" element={<AppointmentForm />} />
           <Route path="appointments" element={<AppointmentsList />} />
           <Route path="servicehistory" element={<ServiceHistory />} />
-
         </Routes>
       </div>
     </BrowserRouter>
