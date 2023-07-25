@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import App from "../App";
 
 function AppointmentForm() {
     const [vin, setVin] = useState("")
