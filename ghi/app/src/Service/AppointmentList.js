@@ -74,6 +74,7 @@ function AppointmentsList() {
                             <th>Customer</th>
                             <th>VIP</th>
                             <th>Technician</th>
+                            <th>Status</th>
                         </tr>
                     </thead>
                     <tbody>
