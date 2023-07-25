@@ -111,7 +111,7 @@ List("GET") - Get a list of the vehicle model/models you've created -
 		}
 	]
 }
-
+```
 Updating("PUT") - Updating the vehicle model you've created(Remember to pass in the id to the vehicle model to update the one you want) -
 
 In this instance, you could either update the name of the vehicle model or update the picture_url of the vehicle model -
@@ -120,7 +120,7 @@ In this instance, you could either update the name of the vehicle model or updat
   "name": "Charger",
   "picture_url": "https://hips.hearstapps.com/hmg-prod/images/2021-dodge-charger-srt-hellcat-redeye-103-1593634315.jpg?crop=0.769xw:0.577xh;0.0977xw,0.205xh&resize=1200:*"
 }
-```
+
 ```
 
 ### Automobiles:
@@ -172,10 +172,9 @@ List("GET") - Get a list of all of the automobiles you've created -
 		},
     ]
 }
-
+```
 List("GET") - Get a specific automobile by passing in the automobiles VIN in the URL -
 http://localhost:8100/api/automobiles/1C3CC5FB2AN120174/
-
 ```
 {
 	"href": "/api/automobiles/1C3CC5FB2AN120174/",
@@ -234,7 +233,6 @@ Return Value -
 	"sold": false
 }
 ```
-```
 
 # Service Microservice
 
@@ -288,7 +286,7 @@ List all technicians ("GET") -
 		}
 	]
 }
-
+```
 Getting the data of a specific technician ("GET") -
 Make sure you pass in the id for the technician you want to get the details about -
 
@@ -348,7 +346,6 @@ Now when you go back to your list of technicians or if you try to get the specif
 	"MESSAGE": "TECHNICIAN DOES NOT EXIST"
 }
 
-```
 ```
 
 With a 404 not found Error code .
@@ -416,7 +413,7 @@ Listing the Appointment - ("GET")
 		}
 	]
 }
-
+```
 
 Update the appointments status - ("PUT") -
 
@@ -424,13 +421,13 @@ Update the appointments status - ("PUT") -
 {
 	"status": "Finished"
 }
-
+```
 OR
-
+```
 {
 	"status": "Cancelled"
 }
-
+```
 Both can be used by just passing in the id of the appointment and changing the status to either one of these.
 
 Delete an appointment - ("DEL") -
@@ -445,11 +442,11 @@ Once again to delete an appointment, pass in the appointments id -
 ```
 
 Return Value for getting the details of the appointment by passing in the id in the url -
-
+```
 {
 	"MESSAGE": "APPOINTMENT DOES NOT EXIST"
 }
-
+```
 404 Not Found error code
 
 
