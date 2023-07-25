@@ -4,7 +4,7 @@ from django.urls import reverse
 # Create your models here.
 
 class AutomobileVO(models.Model):
-    vin = models.CharField(max_length=200, unique=True)
+    vin = models.CharField(max_length=17, unique=True)
 
 class Technician(models.Model):
     first_name = models.CharField(max_length=200)
