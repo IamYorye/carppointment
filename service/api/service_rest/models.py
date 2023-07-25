@@ -26,7 +26,7 @@ class Appointment(models.Model):
     status = models.CharField(max_length=200, default="Created")
     technician = models.ForeignKey(
         Technician,
-        related_name="technician",
+        related_name="appointments",
         on_delete=models.PROTECT
     )
 
