@@ -362,10 +362,92 @@ Now the whole point of our microservice, we want to be able to create appointmen
 | Delete appointment | DELETE | http://localhost:8080/api/appointments/<int:pk>/
 | Update appointment | DELETE | http://localhost:8080/api/appointments/<int:pk>/
 
-Create an appointment - ("GET") -
+Create an appointment - ("POST") -
+When you create an appointment you'll enter a 17 character VIN, a date for the appointment, reason for the appointment, your name foir customer, vip can be left blank because it goes through our API to determine if your vehicle should have a vip status and status will be left blank to where the work will be done by the front end, and lastly you pick the technician via their ID on Insomnia, on the front end it would be their name.
 
 ```
 
+{
+	"vin": 1235768959403657,
+	"date_time": "2023-07-25",
+	"reason": "Seats",
+	"customer": "Josh",
+	"vip": "",
+	"status": "",
+	"technician": 6
+}
+
+```
+
+Return Value -
+
+```
+
+{
+	"id": 46,
+	"vin": 1235768959403657,
+	"date_time": "2023-07-25",
+	"reason": "Seats",
+	"customer": "Josh",
+	"vip": false,
+	"status": "",
+	"technician": 6
+}
+
+```
+
+Listing the Appointment - ("GET")
+
+```
+{
+	"appointments": [
+		{
+			"id": 46,
+			"vin": "1235768959403657",
+			"date_time": "2023-07-25T00:00:00+00:00",
+			"reason": "Seats",
+			"customer": "Josh",
+			"vip": false,
+			"status": "",
+			"technician": 6
+		}
+	]
+}
+
+
+Update the appointments status - ("PUT") -
+
+```
+{
+	"status": "Finished"
+}
+
+OR
+
+{
+	"status": "Cancelled"
+}
+
+Both can be used by just passing in the id of the appointment and changing the status to either one of these.
+
+Delete an appointment - ("DEL") -
+
+Once again to delete an appointment, pass in the appointments id -
+
+```
+{
+	"status": "Cancelled"
+}
+
+```
+
+Return Value for getting the details of the appointment by passing in the id in the url -
+
+{
+	"MESSAGE": "APPOINTMENT DOES NOT EXIST"
+}
+
+404 Not Found error code
 
 
 # Sales Microservice
