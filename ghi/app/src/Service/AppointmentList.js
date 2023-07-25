@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-
 function AppointmentsList() {
     const [appointments, setAppointments] = useState([]);
     const [technicians, setTechnicians] = useState([]);
