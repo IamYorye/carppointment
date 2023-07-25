@@ -27,7 +27,7 @@ function VehicleModelForm() {
         const data = {}
         data.name = name
         data.picture_url = picture_url
-        data.manufacturer = manufacturer
+        data.manufacturer_id = manufacturer
 
         const vehicleModelsUrl = "http://localhost:8100/api/models/"
         const fetchConfig = {
@@ -70,7 +70,7 @@ function VehicleModelForm() {
                     <form onSubmit={handleSubmit}>
                         <div className='form-floating mb-3'>
                             <input onChange={handleNameChange} value={name} placeholder='Name' required type='text' name='name' className='form-control' />
-                            <label htmlFor='name'>Manufacturer Name</label>
+                            <label htmlFor='name'>Name</label>
                         </div>
                         <div className='form-floating mb-3'>
                             <input onChange={handlePictureUrlChange} value={picture_url} placeholder='PictureUrl' required type='url' name='picture_url' id="picture_url" className='form-control' />

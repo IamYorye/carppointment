@@ -64,7 +64,7 @@ function AppointmentsList() {
     return (
         <>
             <div>
-                <h1>Appointments List</h1>
+                <h1>Appointments</h1>
                 <table className="table table-dark table-hover">
                     <thead>
                         <tr>

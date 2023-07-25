@@ -17,26 +17,29 @@ function TechnicianList() {
     }, [])
 
     return (
-        <table className="table table-dark table-hover">
-            <thead>
-                <tr>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Technician Identification</th>
-                </tr>
-            </thead>
-            <tbody>
-                {technicians.map(technician => {
-                    return (
-                        <tr key={technician.technician_id}>
-                            <td>{technician.first_name}</td>
-                            <td>{technician.last_name}</td>
-                            <td>{technician.technician_id}</td>
-                        </tr>
-                    )
-                })}
-            </tbody>
-        </table>
+        <div>
+            <h1>Technicians</h1>
+            <table className="table table-dark table-hover">
+                <thead>
+                    <tr>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Technician Identification</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {technicians.map(technician => {
+                        return (
+                            <tr key={technician.technician_id}>
+                                <td>{technician.first_name}</td>
+                                <td>{technician.last_name}</td>
+                                <td>{technician.technician_id}</td>
+                            </tr>
+                        )
+                    })}
+                </tbody>
+            </table>
+        </div>
     )
 }
 
