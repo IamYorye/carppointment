@@ -111,7 +111,7 @@ function AppointmentsList() {
                                     <td>{appointment.date_time}</td>
                                     <td>{appointment.reason}</td>
                                     <td>{appointment.customer}</td>
-                                    <td>{autos.vip ? "Yes" : "No"}</td>
+                                    <td>{appointment.vip ? "Yes" : "No"}</td>
                                     <td>
                                         {technicianFirstName} {technicianLastName}
                                     </td>
