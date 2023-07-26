@@ -17,11 +17,11 @@ from service_rest.models import AutomobileVO
 def get_automobile():
     response = requests.get("http://inventory-api:8000/api/automobiles/")
     content = json.loads(response.content)
-    for automobile in content["autos"]:
+    for automobile in content["automobiles"]:
         AutomobileVO.objects.update_or_create(
             vin = automobile["vin"],
             defaults ={
-                "id": automobile["id"],
+                "vin": automobile["vin"],
             }
         )
 
@@ -37,7 +37,7 @@ def poll(repeat=True):
         if (not repeat):
             break
 
-        time.sleep(10)
+        time.sleep(60)
 
 
 if __name__ == "__main__":
