@@ -11,7 +11,10 @@ function AppointmentsList() {
 
         if (response.ok) {
             const data = await response.json();
-            setAppointments(data.appointments);
+            const activeAppointments = data.appointments.filter(
+                (appointment) => appointment.status !== "Cancelled" && appointment.status !== "Finished"
+            );
+            setAppointments(activeAppointments);
         }
     };
 
@@ -108,7 +111,7 @@ function AppointmentsList() {
                                     <td>{appointment.date_time}</td>
                                     <td>{appointment.reason}</td>
                                     <td>{appointment.customer}</td>
-                                    <td>{appointment.vip ? "Yes" : "No"}</td>
+                                    <td>{autos.vip ? "Yes" : "No"}</td>
                                     <td>
                                         {technicianFirstName} {technicianLastName}
                                     </td>
