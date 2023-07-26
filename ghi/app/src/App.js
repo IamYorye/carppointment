@@ -12,6 +12,11 @@ import VehicleModelForm from './Inventory/VehicleModelForm';
 import VehicleModelList from './Inventory/VehicleModelList';
 import AutomobileForm from './Inventory/AutomobileForm';
 import AutomobileList from './Inventory/AutomobileList';
+import SalespersonList from './Sales/SalespersonList';
+import SalespersonForm from './Sales/SalespersonForm';
+import CustomerForm from "./Sales/CustomerForm";
+import CustomerList from './Sales/CustomerList';
+import CreateSales from './Sales/NewSaleForm';
 
 function App() {
   return (
@@ -20,17 +25,25 @@ function App() {
       <div className="container">
         <Routes>
           <Route path="/" element={<MainPage />} />
+          {/* inventory */}
           <Route path="manufacturers/new" element={<ManufacturerForm />} />
           <Route path="manufacturers" element={<ManufacturerList />} />
           <Route path="vehiclemodel/new" element={<VehicleModelForm />} />
           <Route path="vehiclemodels" element={<VehicleModelList />} />
           <Route path="automobiles/new" element={<AutomobileForm />} />
           <Route path="automobiles" element={<AutomobileList />} />
+          {/* Services */}
           <Route path="technicians/new" element={<TechnicianForm />} />
           <Route path="technicians" element={<TechnicianList />} />
           <Route path="appointments/new" element={<AppointmentForm />} />
           <Route path="appointments" element={<AppointmentsList />} />
           <Route path="servicehistory" element={<ServiceHistory />} />
+          {/* Sales */}
+          <Route path="salespeople" element={<SalespersonList />} />
+          <Route path="salespeople/new" element={<SalespersonForm />} />
+          <Route path="customer/new" element={<CustomerForm />} />
+          <Route path="customer" element={<CustomerList />} />
+          <Route path="sales/new" element={<CreateSales />} />
         </Routes>
       </div>
     </BrowserRouter>

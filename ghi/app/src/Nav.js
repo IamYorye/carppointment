@@ -10,6 +10,7 @@ function Nav() {
         </button>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+            {/* Inventory */}
             <li className='nav-item'>
               <NavLink className="nav-link" to="/manufacturers/new"> Create a Manufacturer</NavLink>
             </li>
@@ -28,6 +29,7 @@ function Nav() {
             <li className='nav-item'>
               <NavLink className="nav-link" to="/automobiles">Automobiles List</NavLink>
             </li>
+            {/* Services */}
             <li className='nav-item'>
               <NavLink className="nav-link" to="/technicians/new">Add a Technician</NavLink>
             </li>
@@ -42,6 +44,11 @@ function Nav() {
             </li>
             <li className='nav-item'>
               <NavLink className="nav-link" to="/servicehistory">Service History</NavLink>
+            </li>
+            {/* Sales */}
+
+            <li className='nav-item'>
+              <NavLink className="nav-link" to="/sales/new">Log Sale</NavLink>
             </li>
           </ul>
         </div>
