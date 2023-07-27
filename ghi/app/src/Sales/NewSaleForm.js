@@ -1,127 +1,187 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react";
 
 function CreateSales() {
-    const [vin, setVin] = useState([])
-    const [customer, setCustomer] = useState([])
-    const [salesperson, setSalesperson] = useState('')
-    const [price, setPrice] = useState('')
-    const [salespeople, setSalespeople] = useState([])
+  const [automobile, setAutomobile] = useState('');
+  const [customer, setCustomer] = useState('');
+  const [salesperson, setSalesperson] = useState('');
+  const [price, setPrice] = useState('');
+  const [salespeople, setSalespeople] = useState([]);
+  const [customers, setCustomers] = useState([]);
+  const [automobiles, setAutomobiles] = useState([]);
+  const [availableAutomobiles, setAvailableAutomobiles] = useState([]);
 
-
-    async function handleSubmit(event) {
-        event.preventDefault()
-        const data = {
-            vin,
-            customer,
-            salesperson,
-            price,
-        };
-
-        const url = 'http://localhost:8090/api/sales/'
-        const fetchConfig = {
-            method: "post",
-            body: JSON.stringify(data),
-            headers: {
-                'Content-Type': 'application/json',
-            }
-        };
-        const response = await fetch(url, fetchConfig);
-        if (response.ok) {
-            const newSale = await response.json();
-            console.log(newSale);
-            setVin('')
-            setCustomer('')
-            setSalesperson('')
-            setPrice('')
-        } else {
-            console.log("You've sinned and now you're being banished to the shadow realm.")
-        }
+  async function fetchAutomobileData() {
+    const Url = 'http://localhost:8100/api/automobiles/';
+    const response = await fetch(Url);
+    if (response.ok) {
+      const data = await response.json();
+      setAutomobiles(data.autos);
+    } else {
+      console.error(response);
     }
+  }
 
-    function handleSetVin(event) {
-        const { value } = event.target;
-        setVin(value);
+  const fetchCustomerData = async () => {
+    const response = await fetch('http://localhost:8090/api/customer/');
+    if (response.ok) {
+      const data = await response.json();
+      setCustomers(data.customer);
+    } else {
+      console.error(response);
     }
+  }
 
-    function handleSetCustomer(event) {
-        const { value } = event.target;
-        setCustomer(value);
+  async function fetchSalespersonData() {
+    const Url = 'http://localhost:8090/api/salespeople/';
+    const response = await fetch(Url);
+    if (response.ok) {
+      const data = await response.json();
+      setSalespeople(data.salesperson);
+    } else {
+      console.error(response);
     }
+  }
 
-    function handleSetSalesperson(event) {
-        const { value } = event.target;
-        setSalesperson(value);
+  useEffect(() => {
+    fetchAutomobileData();
+    fetchCustomerData();
+    fetchSalespersonData();
+  }, []);
+
+  useEffect(() => {
+    const filteredAutomobiles = automobiles.filter(automobile => !automobile.sold);
+    setAvailableAutomobiles(filteredAutomobiles);
+  }, [automobiles]);
+
+  async function handleSubmit(event) {
+    event.preventDefault()
+    const data = {
+      automobile,
+      customer,
+      salesperson,
+      price,
+    };
+
+    const url = 'http://localhost:8090/api/sales/'
+    const fetchConfig = {
+      method: "post",
+      body: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    };
+    const response = await fetch(url, fetchConfig);
+    if (response.ok) {
+      const newSale = await response.json();
+      console.log(newSale);
+      setAutomobile('');
+      setCustomer('');
+      setSalesperson('');
+      setPrice('');
+    } else {
+      console.log("You've sinned and now you're being banished to the shadow realm.");
+      console.error(response);
     }
+  }
 
-    function handleSetPrice(event) {
-        const { value } = event.target;
-        setPrice(value);
-    }
+  function handleSetAutomobile(event) {
+    setAutomobile(event.target.value);
+  }
 
-    return (
-        <div className="row">
-            <div className="offset-3 col-6">
-                <div className="shadow p-4 mt-4">
-                    <h1>Add a Salesperson</h1>
-                    <form onSubmit={handleSubmit}>
-                        <div className="form-floating mb-3">
-                            <select required value={vin} onChange={handleSetVin} placeholder="Automobile VIN" type="text" name="vin" id="vin" className="form-control">
-                                <option value="">Choose an automobile VIN...</option>
-                                {vin?.map(car => {
-                                    return (
-                                        <option key={car} value={car}>{car}</option>
-                                    )
-                                })}
-                            </select>
-                        </div>
+  function handleSetCustomer(event) {
+    setCustomer(event.target.value);
+  }
 
-                        <div className="mb-3">
-                            <label htmlFor="customer">Choose a customer...</label>
-                            <select
-                                onChange={handleSetCustomer}
-                                value={customer}
-                                required
-                                id="customer"
-                                name="customer"
-                                className="form-select"
-                            >
-                                <option value="">Select an option...</option>
-                                {customer.map((customers) => (
-                                    <option key={customers.id} value={customers.id}>
-                                        {customers.first_name + " " + customers.last_name}
-                                    </option>
-                                ))}
-                            </select>
-                        </div>
+  function handleSetSalesperson(event) {
+    setSalesperson(event.target.value);
+  }
 
-                        <div className="mb-3">
-                            <label htmlFor="salesperson">Choose a salesperson...</label>
-                            <select
-                                onChange={handleSetSalesperson}
-                                value={salesperson}
-                                required
-                                id="salesperson"
-                                name="salesperson"
-                                className="form-select"
-                            >
-                                <option value="">Select an option...</option>
-                                {salespeople.map((sp) => (
-                                    <option key={sp.id} value={sp.id}>
-                                        {sp.first_name + " " + sp.last_name}
-                                    </option>
-                                ))}
-                            </select>
-                        </div>
-                        <div className="form-floating mb-3">
-                            <input onChange={handleSetPrice} value={price} placeholder="Price" required type="text" name="price" id="price" className="form-control" />
-                            <label htmlFor="price">Price</label>
-                        </div>
-                        <button className="btn btn-primary">Create</button>
-                    </form>
-                </div>
+  function handleSetPrice(event) {
+    setPrice(event.target.value);
+  }
+
+  return (
+    <div className="row">
+      <div className="offset-3 col-6">
+        <div className="shadow p-4 mt-4">
+          <h1>Add a Sale</h1>
+          <form onSubmit={handleSubmit}>
+            <div className="mb-3">
+              <label htmlFor="vin">Choose an automobile...</label>
+              <select
+                onChange={handleSetAutomobile}
+                value={automobile}
+                required
+                id="automobile"
+                name="automobile"
+                className="form-select"
+              >
+                <option value="">Select a VIN...</option>
+                {availableAutomobiles?.map((automobile) => (
+                  <option key={automobile.vin} value={automobile.vin}>
+                    {automobile.vin}
+                  </option>
+                ))}
+              </select>
             </div>
+
+            <div className="mb-3">
+              <label htmlFor="customer">Choose a customer...</label>
+              <select
+                onChange={handleSetCustomer}
+                value={customer}
+                required
+                id="customers"
+                name="customers"
+                className="form-select"
+              >
+                <option value="">Select an option...</option>
+                {customers?.map((customers) => (
+                  <option key={customers.id} value={customers.id}>
+                    {customers.first_name + " " + customers.last_name}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div className="mb-3">
+              <label htmlFor="salesperson">Choose a salesperson...</label>
+              <select
+                onChange={handleSetSalesperson}
+                value={salesperson}
+                required
+                id="salesperson"
+                name="salesperson"
+                className="form-select"
+              >
+                <option value="">Select an option...</option>
+                {salespeople?.map((salespeeps) => (
+                  <option key={salespeeps.id} value={salespeeps.employee_id}>
+                    {salespeeps.first_name} {salespeeps.last_name}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="form-floating mb-3">
+              <input
+                onChange={handleSetPrice}
+                value={price}
+                placeholder="Price"
+                required
+                type="text"
+                name="price"
+                id="price"
+                min="0"
+                className="form-control"
+              />
+              <label htmlFor="price">Price</label>
+            </div>
+            <button className="btn btn-primary">Create</button>
+          </form>
         </div>
-    );
+      </div>
+    </div>
+  );
 }
 
-export default CreateSales
+export default CreateSales;

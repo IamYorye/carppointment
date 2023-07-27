@@ -9,7 +9,7 @@ function SalespersonList() {
         const response = await fetch(salespersonUrl)
         if (response.ok) {
             const salespeopleData = await response.json()
-            setSalespeople(salespeopleData.salespeople)
+            setSalespeople(salespeopleData.salesperson)
         }
     }
     useEffect(() => {
@@ -19,7 +19,7 @@ function SalespersonList() {
     return (
         <div>
             <h1>Salespeople</h1>
-            <table class="table table-hover">
+            <table className="table table-hover">
                 <thead>
                     <tr>
                         <th scope="col">Employee ID</th>
@@ -29,11 +29,13 @@ function SalespersonList() {
                 </thead>
                 <tbody>
                     {salespeople.map(salesperson => {
-                        <tr>
-                            <td>{salesperson.employee_id}</td>
-                            <td>{salesperson.first_name}</td>
-                            <td>{salesperson.last_name}</td>
-                        </tr>
+                        return (
+                            <tr key={salesperson.id}>
+                                <td>{salesperson.employee_id}</td>
+                                <td>{salesperson.first_name}</td>
+                                <td>{salesperson.last_name}</td>
+                            </tr>
+                        )
                     })}
                 </tbody>
             </table>

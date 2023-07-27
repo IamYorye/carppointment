@@ -11,6 +11,7 @@ class AutomobileVODetailEncoder(ModelEncoder):
     properties = [
         "vin",
         "sold",
+        "id",
     ]
 
 
@@ -42,6 +43,7 @@ class SaleDetailEncoder(ModelEncoder):
         "automobile",
         "salesperson",
         "customer",
+        "id",
     ]
     encoders = {
         "customer": CustomerDetailEncoder(),
@@ -151,7 +153,6 @@ def api_show_customer(request, id):
 
 @require_http_methods(["GET", "POST"])
 def api_list_sales(request):
-    sale = []
     if request.method == "GET":
         sales = Sale.objects.all()
         return JsonResponse({"sale": list(sales)}, encoder=SaleDetailEncoder)
@@ -163,7 +164,7 @@ def api_list_sales(request):
             content["salesperson"] = sale
         except Salesperson.DoesNotExist:
             return JsonResponse(
-                {"message": 'Salesperson is not in database'}, status=404
+                {"message": 'Salesperson is not in the database'}, status=404
             )
         try:
             customer_id = content["customer"]
@@ -171,17 +172,17 @@ def api_list_sales(request):
             content["customer"] = customer
         except Customer.DoesNotExist:
             return JsonResponse(
-                {"message": 'Customer does not exist! check database or customer list'}, status=404
+                {"message": 'Customer does not exist! Check the database or customer list'}, status=404
             )
         try:
-            vin = content["automobile"]
+            vin = content["automobile"]  # Corrected key to access VIN
             car = AutomobileVO.objects.get(vin=vin)
             content["automobile"] = car
             content["automobile"].sold = True
             content["automobile"].save()
         except AutomobileVO.DoesNotExist:
             return JsonResponse(
-                {"message": 'Automobile not in database! check for sales records'}, status=404
+                {"message": 'Automobile not in the database! Check for sales records'}, status=404
             )
         try:
             price = content["price"]
@@ -193,7 +194,7 @@ def api_list_sales(request):
             )
         except Sale.DoesNotExist:
             return JsonResponse(
-                {"message": "Price not available! maybe it's free.. u never know lol"}, status=404
+                {"message": "Price not available! Maybe it's free.. you never know lol"}, status=404
             )
 
 

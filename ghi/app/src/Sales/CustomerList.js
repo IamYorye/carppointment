@@ -9,7 +9,7 @@ function CustomerList() {
         const response = await fetch(customerUrl)
         if (response.ok) {
             const customerData = await response.json()
-            setCustomer(customerData.customers)
+            setCustomer(customerData.customer)
         }
     }
     useEffect(() => {
@@ -19,7 +19,7 @@ function CustomerList() {
     return (
         <div>
             <h1>customer</h1>
-            <table class="table table-hover">
+            <table className="table table-hover">
                 <thead>
                     <tr>
                         <th scope="col">First name</th>
@@ -30,12 +30,14 @@ function CustomerList() {
                 </thead>
                 <tbody>
                     {customers.map(customer => {
-                        <tr>
-                            <td>{customer.first_name}</td>
-                            <td>{customer.last_name}</td>
-                            <td>{customer.address}</td>
-                            <td>{customer.phone_number}</td>
-                        </tr>
+                        return (
+                            <tr key={customer.id}>
+                                <td>{customer.first_name}</td>
+                                <td>{customer.last_name}</td>
+                                <td>{customer.address}</td>
+                                <td>{customer.phone_number}</td>
+                            </tr>
+                        );
                     })}
                 </tbody>
             </table>

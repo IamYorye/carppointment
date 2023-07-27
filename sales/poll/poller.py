@@ -16,9 +16,12 @@ from sales_rest.models import AutomobileVO
 def get_automobiles():
     response = requests.get("http://inventory-api:8000/api/automobiles/")
     content = json.loads(response.content)
-    for automobile in content["automobiles"]:
+    for automobile in content["autos"]:
         AutomobileVO.objects.update_or_create(
-            vin=automobile["vin"]
+            vin=automobile["vin"],
+            defaults={
+                "sold": False,
+            }
         )
 
 
@@ -32,7 +35,7 @@ def poll():
         except Exception as e:
             print(e, file=sys.stderr)
 
-        time.sleep(60)
+        time.sleep(10)
 
 
 if __name__ == "__main__":
