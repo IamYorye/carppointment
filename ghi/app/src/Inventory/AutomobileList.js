@@ -12,6 +12,7 @@ function AutomobileList() {
         }
     }
 
+
     useEffect(() => {
         getAutosData()
     }, [])
