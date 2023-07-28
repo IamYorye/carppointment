@@ -27,6 +27,8 @@ If the containers are running, on your browser copy paste this url to see the fr
 
 ![Img](/ghi/app/public/project-beta.png)
 
+![Img](/ghi/app/public/excalidraw.png)
+
 ## Design
 
 Project Beta is made up of 3 microservices, which interact with one another.
