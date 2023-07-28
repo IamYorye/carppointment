@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 
 function ServiceHistory() {
     const [vin, setVin] = useState("");
-    const [serviceHistory, setServiceHistory] = useState([]);
-    const [technicians, setTechnicians] = useState([]);
+    const [serviceHistory, setServiceHistory] = useState([])
+    const [technicians, setTechnicians] = useState([])
 
     const handleVinChange = (event) => {
         const value = event.target.value;
@@ -11,7 +11,7 @@ function ServiceHistory() {
     };
 
     const fetchAppointmentsData = async () => {
-        const appointmentsUrl = "http://localhost:8080/api/appointments/";
+        const appointmentsUrl = "http://localhost:8080/api/appointments/"
         const response = await fetch(appointmentsUrl);
 
         if (response.ok) {
@@ -21,11 +21,11 @@ function ServiceHistory() {
     };
 
     const getTechnicianData = async () => {
-        const technicianUrl = "http://localhost:8080/api/technicians/";
+        const technicianUrl = "http://localhost:8080/api/technicians/"
         const response = await fetch(technicianUrl);
         if (response.ok) {
-            const data = await response.json();
-            setTechnicians(data.technicians);
+            const data = await response.json()
+            setTechnicians(data.technicians)
         }
     };
 

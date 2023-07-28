@@ -1,81 +1,69 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+
 function AppointmentsList() {
-    const [appointments, setAppointments] = useState([]);
-    const [technicians, setTechnicians] = useState([]);
-    const [autos, setAutos] = useState([])
+    const [appointments, setAppointments] = useState([])
+    const [technicians, setTechnicians] = useState([])
 
     const getAppointmentData = async () => {
-        const appointmentsUrl = "http://localhost:8080/api/appointments/";
-        const response = await fetch(appointmentsUrl);
+        const appointmentsUrl = "http://localhost:8080/api/appointments/"
+        const response = await fetch(appointmentsUrl)
 
         if (response.ok) {
-            const data = await response.json();
+            const data = await response.json()
             const activeAppointments = data.appointments.filter(
                 (appointment) => appointment.status !== "Cancelled" && appointment.status !== "Finished"
             );
-            setAppointments(activeAppointments);
-        }
-    };
-
-    const getTechnicianData = async () => {
-        const technicianUrl = "http://localhost:8080/api/technicians/";
-        const response = await fetch(technicianUrl);
-        if (response.ok) {
-            const data = await response.json();
-            setTechnicians(data.technicians);
-        }
-    };
-
-    const getAutosData = async () => {
-        const autosUrl = "http://localhost:8100/api/automobiles/"
-        const response = await fetch(autosUrl)
-        if (response.ok) {
-            const data = await response.json()
-            setAutos(data.autos)
+            setAppointments(activeAppointments)
         }
     }
 
+    const getTechnicianData = async () => {
+        const technicianUrl = "http://localhost:8080/api/technicians/"
+        const response = await fetch(technicianUrl)
+        if (response.ok) {
+            const data = await response.json()
+            setTechnicians(data.technicians)
+        }
+    }
 
     const cancelAppointment = async (id) => {
-        const appointmentUrl = `http://localhost:8080/api/appointments/${id}/`;
+        const appointmentUrl = `http://localhost:8080/api/appointments/${id}/`
         const fetchConfig = {
             method: "PUT",
             body: JSON.stringify({ status: "Cancelled" }),
             headers: {
                 "Content-Type": "application/json",
             },
-        };
-        const response = await fetch(appointmentUrl, fetchConfig);
+        }
+        const response = await fetch(appointmentUrl, fetchConfig)
         if (response.ok) {
             setAppointments((appointments) =>
                 appointments.filter((appointment) => appointment.id !== id)
-            );
+            )
         }
-    };
+    }
 
     const finishAppointment = async (id) => {
-        const appointmentUrl = `http://localhost:8080/api/appointments/${id}/`;
+        const appointmentUrl = `http://localhost:8080/api/appointments/${id}/`
         const fetchConfig = {
             method: "PUT",
             body: JSON.stringify({ status: "Finished" }),
             headers: {
                 "Content-Type": "application/json",
             },
-        };
-        const response = await fetch(appointmentUrl, fetchConfig);
+        }
+        const response = await fetch(appointmentUrl, fetchConfig)
         if (response.ok) {
             setAppointments((appointments) =>
                 appointments.filter((appointment) => appointment.id !== id)
-            );
+            )
         }
-    };
+    }
 
     useEffect(() => {
-        getAppointmentData();
-        getTechnicianData();
-        getAutosData()
-    }, []);
+        getAppointmentData()
+        getTechnicianData()
+    }, [])
 
     return (
         <>
