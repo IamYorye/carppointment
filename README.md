@@ -27,7 +27,7 @@ If the containers are running, on your browser copy paste this url to see the fr
 
 ![Img](/ghi/app/public/car-project.png)
 
-![Img](/ghi/app/public/excalidraw.png)
+![Img](/ghi/app/public/excalidraw1.png)
 
 ## Design
 
