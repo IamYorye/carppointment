@@ -54,15 +54,14 @@ function CreateSales() {
   }, [automobiles]);
 
   async function handleSubmit(event) {
-    event.preventDefault()
-    const data = {
-      automobile,
-      customer,
-      salesperson,
-      price,
-    };
+    event.preventDefault();
+    const data = {}
+      data.automobile = automobile
+      data.customer = customer
+      data.salesperson = salesperson
+      data.price = price
 
-    const url = 'http://localhost:8090/api/sales/'
+    const url = 'http://localhost:8090/api/sales/';
     const fetchConfig = {
       method: "post",
       body: JSON.stringify(data),
@@ -72,16 +71,22 @@ function CreateSales() {
     };
     const response = await fetch(url, fetchConfig);
     if (response.ok) {
-      const newSale = await response.json();
-      console.log(newSale);
+      const soldUrl = `http://localhost:8100/api/automobiles/${automobile}/sold/`;
+      const soldFetchConfig = {
+        method: "put",
+      };
+      const soldResponse = await fetch(soldUrl, soldFetchConfig);
+      window.location.href = window.location.href;
+
       setAutomobile('');
       setCustomer('');
       setSalesperson('');
       setPrice('');
-    } else {
-      console.log("You've sinned and now you're being banished to the shadow realm.");
-      console.error(response);
     }
+    // } else {
+    //   console.log("You've sinned and now you're being banished to the shadow realm.");
+    //   console.error(response);
+    // }
   }
 
   function handleSetAutomobile(event) {
@@ -155,9 +160,9 @@ function CreateSales() {
                 className="form-select"
               >
                 <option value="">Select an option...</option>
-                {salespeople?.map((salespeeps) => (
-                  <option key={salespeeps.id} value={salespeeps.employee_id}>
-                    {salespeeps.first_name} {salespeeps.last_name}
+                {salespeople.map((salesperson) => (
+                  <option key={salesperson.id} value={salesperson.id}>
+                    {salesperson.first_name} {salesperson.last_name}
                   </option>
                 ))}
               </select>

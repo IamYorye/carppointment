@@ -170,12 +170,13 @@ def api_list_sales(request):
             customer_id = content["customer"]
             customer = Customer.objects.get(id=customer_id)
             content["customer"] = customer
+
         except Customer.DoesNotExist:
             return JsonResponse(
                 {"message": 'Customer does not exist! Check the database or customer list'}, status=404
             )
         try:
-            vin = content["automobile"]  # Corrected key to access VIN
+            vin = content["automobile"]
             car = AutomobileVO.objects.get(vin=vin)
             content["automobile"] = car
             content["automobile"].sold = True
@@ -187,6 +188,7 @@ def api_list_sales(request):
         try:
             price = content["price"]
             sale = Sale.objects.create(**content)
+
             return JsonResponse(
                 sale,
                 encoder=SaleDetailEncoder,

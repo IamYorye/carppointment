@@ -41,6 +41,17 @@ What the Services microservice does is allow a user to add a technician to the t
 
 - **Sales**
 
+The Sales microservice offers users a comprehensive set of functionalities. Users can add Customer information and Salesperson details, log sales, create new sales, and view lists of customers, salespeople, and sales.
+
+To create a new salesperson, users can enter their first name, last name, and a unique employee ID. The list of all salespeople is accessible via the salesperson list tab.
+
+Additionally, users have the ability to create a new customer by providing their first and last name, phone number, and address. To view the list of customers, users can navigate to the customer list tab.
+
+Users are permitted to create new sales, but they can only sell cars that have not been sold yet. This involves selecting a customer from the customer list and an automobile VIN number from the inventory of unsold cars.
+
+The sales list contains a comprehensive history of all sales made on the site, and users can use live filters to narrow down sales by specific salespeople's first names.
+
+
 ## Accessing Endpoints to Send, Create and View Data through Insomnia and your browser
 
 ### Manufacturers:

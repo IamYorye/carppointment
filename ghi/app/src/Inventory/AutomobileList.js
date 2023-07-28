@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 function AutomobileList() {
     const [autos, setAutos] = useState([])
 
+
     const getAutosData = async () => {
         const automobilesUrl = "http://localhost:8100/api/automobiles/"
         const response = await fetch(automobilesUrl)

@@ -1,7 +1,7 @@
 from django.http import JsonResponse
 from django.views.decorators.http import require_http_methods
 import json
-
+from django.shortcuts import get_object_or_404
 from .encoders import (
     AutomobileEncoder,
     ManufacturerEncoder,
@@ -226,3 +226,12 @@ def api_vehicle_model(request, pk):
             response = JsonResponse({"message": "Does not exist"})
             response.status_code = 404
             return response
+
+
+@require_http_methods(["PUT"])
+def api_sold(request, vin):
+    automobile = Automobile.objects.get(vin=vin)
+    automobile.sold = True
+    automobile.save()
+
+    return JsonResponse({"message": "Automobile successfully sold!"})
