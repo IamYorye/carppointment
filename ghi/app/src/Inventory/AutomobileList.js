@@ -41,7 +41,7 @@ function AutomobileList() {
                                 <td>{auto.year}</td>
                                 <td>{auto.model.name}</td>
                                 <td>{auto.model.manufacturer.name}</td>
-                                <td>{auto.sold}</td>
+                                <td>{auto.sold ? "Sold" : "Available"}</td>
                             </tr>
                         )
                     })}

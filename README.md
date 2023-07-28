@@ -47,7 +47,7 @@ To create a new salesperson, users can enter their first name, last name, and a 
 
 Additionally, users have the ability to create a new customer by providing their first and last name, phone number, and address. To view the list of customers, users can navigate to the customer list tab.
 
-Users are permitted to create new sales, but they can only sell cars that have not been sold yet. This involves selecting a customer from the customer list and an automobile VIN number from the inventory of unsold cars.
+Users are permitted to create new sales, but they can only make sales for cars that have not been sold yet. This involves selecting a customer from the customer list, the salesperson closing the sale from the salespeople list and an automobile VIN number from the inventory of unsold cars as well as entering the price of the automobile.
 
 The sales list contains a comprehensive history of all sales made on the site, and users can use live filters to narrow down sales by specific salespeople's first names.
 
@@ -462,3 +462,390 @@ Return Value for getting the details of the appointment by passing in the id in 
 
 
 # Sales Microservice
+
+Let's explore how we can create and log salespeople, customers, and sales in our database. To initiate a sale, it's essential to have existing records of salespeople and customers. Additionally, we must have an inventory database containing information about the available automobiles, each identified by a unique VIN number. This approach ensures accurate assignment of automobiles to their respective sales.
+
+By utilizing the VIN number as a unique identifier, we can precisely link specific vehicles to their corresponding sales transactions. This process helps maintain accurate records and improves overall efficiency in our sales management system.
+
+### Salespeople:
+
+| Action | Method | URL
+| ----------- | ----------- | ----------- |
+| List salespeople | GET | http://localhost:8090/api/salespeople/
+| salesperson detail | GET | http://localhost:8090/api/salespeople/<int:id>/
+| Create a salesperson | POST | http://localhost:8090/api/salespeople/
+| Update a salesperson | PUT | http://localhost:8090/api/salespeople/<int:id>/
+
+
+
+create a Salesperson ("POST")
+
+**Make sure the given "employee_id" is unique to each salesperson.
+
+```
+{
+	"first_name": "John",
+	"last_name": "Wick",
+	"employee_id": "11111"
+}
+```
+return value:
+
+```
+{
+	"first_name": "John",
+	"last_name": "Wick",
+	"employee_id": "11111",
+	"id": 1
+}
+```
+
+
+
+To update a Salesperson ("PUT")
+
+make sure you use a valid id in the URL.
+
+```
+{
+	"first_name": "lebenon",
+	"last_name": "blames",
+	"employee_id": "23"
+}
+```
+
+return value:
+
+```
+{
+	"first_name": "lebenon",
+	"last_name": "blames",
+	"employee_id": "23",
+	"id": 1
+}
+```
+
+
+
+To get the details of a certain Salesperson ("GET")
+
+once again, make sure that the id is valid and existing
+
+return value:
+
+```
+{
+	"first_name": "lebenon",
+	"last_name": "blames",
+	"employee_id": "23",
+	"id": 1
+}
+```
+
+
+
+to get a list of all salespeople ("GET")
+
+** I created another salesperson for the sake of showcasing the list
+
+return value:
+
+```
+{
+	"salesperson": [
+		{
+			"first_name": "lejon",
+			"last_name": "brames",
+			"employee_id": "1040",
+			"id": 1
+		},
+		{
+			"first_name": "Hank",
+			"last_name": "Schrader",
+			"employee_id": "911",
+			"id": 2
+		}
+	]
+}
+```
+
+
+### Customers:
+
+| Action | Method | URL
+| ----------- | ----------- | ----------- |
+| List Customers | GET | http://localhost:8090/api/salespeople/
+| customer detail | GET | http://localhost:8090/api/salespeople/<int:id>/
+| Create a customer | POST | http://localhost:8090/api/salespeople/
+| Update a customer | PUT | http://localhost:8090/api/salespeople/<int:id>/
+| Delete a customer | DELETE | http://localhost:8090/api/salespeople/<int:id>/
+
+
+
+to create a customer ("POST")
+
+you'll have to enter first name, last name, address and phone number
+
+** make sure the phone number is unique to each customer
+
+```
+{
+  "first_name": "Michael",
+  "last_name": "scott",
+  "address": "Somewhere in Scranton, PA",
+  "phone_number": "5910358213"
+}
+```
+
+return value:
+
+```
+{
+	"first_name": "Michael",
+	"last_name": "scott",
+	"address": "Somewhere in Scranton, PA",
+	"phone_number": "5910358213",
+	"id": 1
+}
+```
+
+
+
+to update a customer's info: ("PUT")
+
+make sure you have a valid customer id in the URL
+
+input:
+```
+{
+  "first_name": "michael",
+  "last_name": "scotch",
+  "address": "4253 something lane",
+  "phone_number": "22200022"
+}
+```
+
+
+return value:
+
+```
+{
+	"first_name": "michael",
+	"last_name": "scotch",
+	"address": "4253 something lane",
+	"phone_number": "22200022",
+	"id": 1
+}
+```
+
+
+
+to get a list of all customers ("GET")
+
+return value:
+```
+{
+	"customer": [
+		{
+			"first_name": "michael",
+			"last_name": "scotch",
+			"address": "4253 something lane",
+			"phone_number": "22200022",
+			"id": 1
+		},
+		{
+			"first_name": "Jim",
+			"last_name": "Halpert",
+			"address": "by the quarry, Lindon ave, Scranton, PA",
+			"phone_number": "5910358213",
+			"id": 2
+		}
+	]
+}
+```
+
+
+
+to show a customer's info ("GET")
+
+make sure you have a valid customer id in the URL
+
+input:
+
+```
+{
+	"first_name": "michael",
+	"last_name": "scotch",
+	"address": "4253 something lane",
+	"phone_number": "22200022",
+}
+```
+
+return value:
+```
+{
+	"first_name": "michael",
+	"last_name": "scotch",
+	"address": "4253 something lane",
+	"phone_number": "22200022",
+	"id": 1
+}
+```
+
+
+
+to delete a customer from the database: ("DELETE")
+
+*make sure you have a valid customer id in the URL
+*due to the database, after deletion the id cannot be used anymore, for example if you delete customer with id: 1 the next customer you create will be assigned id: 2
+
+
+### Sales:
+
+| Action | Method | URL
+| ----------- | ----------- | ----------- |
+| List all sales | GET | http://localhost:8090/api/sales/
+| sale detail | GET | http://localhost:8090/api/sales/<int:id>/
+| Create a sale | POST | http://localhost:8090/api/sales/
+
+
+**to reiterate, you will be required to choose an existing customer (via id integer), salesperson (via id integer) and the VIN number (via vin string)
+
+
+
+
+to create a new sale: ("POST")
+
+
+pass in the correct info for existing automobile, customer and salesperson. you can set the sales price to any positive integer.
+**vehicles are identified by their unique VIN not their database ID.
+
+input:
+
+```
+{
+	"customer": 1,
+	"automobile": "12345678912345111",
+	"salesperson": 1,
+	"price": 20000
+}
+```
+
+
+return value:
+
+```
+{
+	"price": 20000,
+	"automobile": {
+		"vin": "12345678912345111",
+		"sold": true,
+		"id": 4
+	},
+	"salesperson": {
+		"first_name": "lejon",
+		"last_name": "brames",
+		"employee_id": "1040",
+		"id": 1
+	},
+	"customer": {
+		"first_name": "michael",
+		"last_name": "scotch",
+		"address": "4253 something lane",
+		"phone_number": "22200022",
+		"id": 1
+	},
+	"id": 11
+}
+```
+
+
+
+
+to List all sales:  ("GET")
+
+
+
+return value:
+
+```
+{
+	"sale": [
+		{
+			"price": 300000,
+			"automobile": {
+				"vin": "113",
+				"sold": false,
+				"id": 1
+			},
+			"salesperson": {
+				"first_name": "john",
+				"last_name": "wick",
+				"employee_id": "30294",
+				"id": 3
+			},
+			"customer": {
+				"first_name": "Jim",
+				"last_name": "Halpert",
+				"address": "by the quarry, Lindon ave, Scranton, PA",
+				"phone_number": "5910358213",
+				"id": 2
+			},
+			"id": 1
+		},
+		{
+			"price": 300000,
+			"automobile": {
+				"vin": "113",
+				"sold": false,
+				"id": 1
+			},
+			"salesperson": {
+				"first_name": "john",
+				"last_name": "wick",
+				"employee_id": "30294",
+				"id": 3
+			},
+			"customer": {
+				"first_name": "Jim",
+				"last_name": "Halpert",
+				"address": "by the quarry, Lindon ave, Scranton, PA",
+				"phone_number": "5910358213",
+				"id": 2
+			},
+			"id": 2
+		},
+	]
+}
+```
+
+
+
+to get a sale's details: ("GET")
+
+return value:
+
+```
+{
+	"price": 300000,
+	"automobile": {
+		"vin": "113",
+		"sold": false,
+		"id": 1
+	},
+	"salesperson": {
+		"first_name": "john",
+		"last_name": "wick",
+		"employee_id": "30294",
+		"id": 3
+	},
+	"customer": {
+		"first_name": "Jim",
+		"last_name": "Halpert",
+		"address": "by the quarry, Lindon ave, Scranton, PA",
+		"phone_number": "5910358213",
+		"id": 2
+	},
+	"id": 1
+}
+```
