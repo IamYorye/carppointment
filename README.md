@@ -10,7 +10,7 @@ Team:
 ## Getting Started
 
 1. Fork and clone this repository on to your local machine:
-You can clone this machine by going to your terminal and typing - git clone <<repository url>>
+You can clone this machine by going to your terminal and typing - git clone <repository url>
 
 2. Boot up Docker
 
@@ -25,7 +25,7 @@ docker-compose up
 
 If the containers are running, on your browser copy paste this url to see the front end React app, http://localhost:3000/
 
-![Img](/ghi/app/public/project-beta.png)
+![Img](/ghi/app/public/car-project.png)
 
 ![Img](/ghi/app/public/excalidraw.png)
 
